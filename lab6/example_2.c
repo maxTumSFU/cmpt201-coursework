@@ -30,6 +30,16 @@ typedef struct info {
 node_t *head = NULL;
 info_t info = {0};
 
+int sumUp() {
+  int sum = 0;
+  node_t *curr = head;
+  while (curr != NULL) {
+    sum += curr->data;
+    curr = curr->next;
+  }
+  return sum;
+}
+
 void insert_sorted(uint64_t data) {
   node_t *new_node = malloc(sizeof(node_t));
   new_node->data = data;
@@ -79,10 +89,16 @@ int index_of(uint64_t data) {
 }
 
 int main() {
+
+  ASSERT(info.sum == sumUp());
   insert_sorted(1);
+  ASSERT(info.sum == sumUp());
   insert_sorted(3);
+  ASSERT(info.sum == sumUp());
   insert_sorted(5);
+  ASSERT(info.sum == sumUp());
   insert_sorted(2);
+  ASSERT(info.sum == sumUp());
 
   TEST(info.sum == 1 + 3 + 5 + 2);
   TEST(index_of(2) == 1);
